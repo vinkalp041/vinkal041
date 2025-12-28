@@ -35,6 +35,10 @@ const faqs = [
 ];
 
 const FAQSection = () => {
+  const handleWhatsAppRedirect = () => {
+    window.open("https://wa.me/919118245636", "_blank");
+  };
+
   return (
     <section className="section-padding bg-muted/30">
       <div className="container mx-auto px-4 lg:px-8">
@@ -68,7 +72,7 @@ const FAQSection = () => {
 
           <div className="text-center mt-12">
             <p className="text-muted-foreground mb-4">Still have questions?</p>
-            <Button variant="hero" size="lg">
+            <Button variant="hero" size="lg" onClick={handleWhatsAppRedirect}>
               <MessageCircle className="mr-2 w-5 h-5" />
               Talk on WhatsApp
             </Button>

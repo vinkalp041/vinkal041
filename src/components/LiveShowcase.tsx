@@ -1,46 +1,38 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, X } from "lucide-react";
 
 const projects = [
   {
-    title: "GreenLeaf Organics",
-    category: "E-Commerce",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
-    link: "#"
-  },
-  {
-    title: "TechStart Academy",
-    category: "Education",
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=400&fit=crop",
-    link: "#"
-  },
-  {
-    title: "Urban Eats Bakery",
-    category: "Restaurant",
-    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop",
-    link: "#"
-  },
-  {
-    title: "Fitness Pro Gym",
-    category: "Health & Fitness",
-    image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&h=400&fit=crop",
-    link: "#"
-  },
-  {
-    title: "Architect Studio",
+    title: "Vinkal Prajapati Portfolio",
     category: "Portfolio",
-    image: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=600&h=400&fit=crop",
-    link: "#"
+    url: "https://vinkal93.github.io/vinkal-prajapati/"
   },
   {
-    title: "Legal Associates",
-    category: "Corporate",
-    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop",
-    link: "#"
+    title: "SBCIFMS",
+    category: "Institution",
+    url: "https://vinkal93.github.io/SBCIFMS"
+  },
+  {
+    title: "SBCI",
+    category: "Institution",
+    url: "https://vinkal93.github.io/SBCI"
+  },
+  {
+    title: "Vin-Quiz Privacy Policy",
+    category: "Legal",
+    url: "https://vinkal93.github.io/Vin-Quiz-Privacy-policy/"
+  },
+  {
+    title: "Typing Master",
+    category: "Web App",
+    url: "https://typingmaster2.vercel.app/"
   }
 ];
 
 const LiveShowcase = () => {
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
   return (
     <section id="showcase" className="section-padding">
       <div className="container mx-auto px-4 lg:px-8">
@@ -55,26 +47,38 @@ const LiveShowcase = () => {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {projects.map((project, index) => (
+          {projects.map((project) => (
             <div
               key={project.title}
               className="group relative bg-card border border-border rounded-2xl overflow-hidden card-shadow hover:border-primary/50 transition-all duration-300"
             >
-              {/* Image */}
-              <div className="relative overflow-hidden aspect-video">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              {/* Live Preview Frame */}
+              <div className="relative overflow-hidden aspect-video bg-muted">
+                <iframe
+                  src={project.url}
+                  title={project.title}
+                  className="w-full h-full pointer-events-none scale-[0.5] origin-top-left"
+                  style={{ width: "200%", height: "200%" }}
+                  loading="lazy"
+                  sandbox="allow-scripts allow-same-origin"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 
-                {/* Hover Button */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <Button variant="hero" size="default">
-                    View Live Website
-                    <ExternalLink className="ml-2 w-4 h-4" />
+                {/* Hover Buttons */}
+                <div className="absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <Button 
+                    variant="hero" 
+                    size="default"
+                    onClick={() => setPreviewUrl(project.url)}
+                  >
+                    Preview
                   </Button>
+                  <a href={project.url} target="_blank" rel="noopener noreferrer">
+                    <Button variant="heroOutline" size="default">
+                      Visit
+                      <ExternalLink className="ml-2 w-4 h-4" />
+                    </Button>
+                  </a>
                 </div>
               </div>
 
@@ -90,11 +94,45 @@ const LiveShowcase = () => {
         </div>
 
         <div className="text-center mt-12">
-          <Button variant="outline" size="lg">
-            View All Projects
-          </Button>
+          <a href="https://forms.gle/szcGyWgnXACAQGe86" target="_blank" rel="noopener noreferrer">
+            <Button variant="outline" size="lg">
+              Get Your Own Website
+            </Button>
+          </a>
         </div>
       </div>
+
+      {/* Preview Modal */}
+      {previewUrl && (
+        <div className="fixed inset-0 z-50 bg-background/95 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="w-full max-w-6xl h-[80vh] relative">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="absolute -top-12 right-0 hover:bg-muted"
+              onClick={() => setPreviewUrl(null)}
+            >
+              <X className="w-6 h-6" />
+            </Button>
+            <div className="w-full h-full rounded-xl overflow-hidden border border-border bg-card">
+              <iframe
+                src={previewUrl}
+                title="Website Preview"
+                className="w-full h-full"
+                loading="lazy"
+              />
+            </div>
+            <div className="flex justify-center mt-4">
+              <a href={previewUrl} target="_blank" rel="noopener noreferrer">
+                <Button variant="hero">
+                  Open Full Website
+                  <ExternalLink className="ml-2 w-4 h-4" />
+                </Button>
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

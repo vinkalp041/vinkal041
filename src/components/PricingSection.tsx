@@ -47,6 +47,10 @@ const plans = [
 ];
 
 const PricingSection = () => {
+  const handleStartProject = () => {
+    window.open("https://forms.gle/szcGyWgnXACAQGe86", "_blank");
+  };
+
   return (
     <section id="pricing" className="section-padding bg-muted/30">
       <div className="container mx-auto px-4 lg:px-8">
@@ -61,7 +65,7 @@ const PricingSection = () => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
-          {plans.map((plan, index) => (
+          {plans.map((plan) => (
             <div
               key={plan.name}
               className={`relative bg-card border rounded-2xl p-6 lg:p-8 transition-all duration-300 hover:-translate-y-2 ${
@@ -101,6 +105,7 @@ const PricingSection = () => {
                 variant={plan.popular ? "hero" : "outline"} 
                 size="lg" 
                 className="w-full"
+                onClick={handleStartProject}
               >
                 Start My Project
               </Button>
