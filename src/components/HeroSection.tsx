@@ -2,6 +2,14 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Play } from "lucide-react";
 
 const HeroSection = () => {
+  const handleGoogleFormRedirect = () => {
+    window.open("https://forms.gle/szcGyWgnXACAQGe86", "_blank");
+  };
+
+  const handleViewWork = () => {
+    document.getElementById("showcase")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-hero">
       {/* Background Glow Effects */}
@@ -42,11 +50,11 @@ const HeroSection = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up" style={{ animationDelay: "0.3s" }}>
-            <Button variant="hero" size="xl">
+            <Button variant="hero" size="xl" onClick={handleGoogleFormRedirect}>
               Start My Website
               <ArrowRight className="ml-2" />
             </Button>
-            <Button variant="heroOutline" size="xl">
+            <Button variant="heroOutline" size="xl" onClick={handleViewWork}>
               <Play className="mr-2" size={18} />
               View Our Work
             </Button>

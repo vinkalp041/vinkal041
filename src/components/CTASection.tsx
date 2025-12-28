@@ -2,6 +2,14 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, MessageCircle } from "lucide-react";
 
 const CTASection = () => {
+  const handleGoogleFormRedirect = () => {
+    window.open("https://forms.gle/szcGyWgnXACAQGe86", "_blank");
+  };
+
+  const handleWhatsAppRedirect = () => {
+    window.open("https://wa.me/919118245636", "_blank");
+  };
+
   return (
     <section id="contact" className="section-padding relative overflow-hidden">
       {/* Background Effects */}
@@ -28,11 +36,11 @@ const CTASection = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button variant="hero" size="xl">
+            <Button variant="hero" size="xl" onClick={handleGoogleFormRedirect}>
               Start My Website
               <ArrowRight className="ml-2" />
             </Button>
-            <Button variant="heroOutline" size="xl">
+            <Button variant="heroOutline" size="xl" onClick={handleWhatsAppRedirect}>
               <MessageCircle className="mr-2" />
               Talk on WhatsApp
             </Button>
