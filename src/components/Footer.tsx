@@ -1,31 +1,37 @@
-import { Phone, Mail, MessageCircle, MapPin, Github } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Phone, Mail, MessageCircle, MapPin } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { t } = useLanguage();
+  const navigate = useNavigate();
 
-  const footerLinks = {
-    navigation: [
-      { name: "Home", href: "/#home" },
-      { name: "Services", href: "/#services" },
-      { name: "Live Showcase", href: "/#showcase" },
-      { name: "Pricing", href: "/#pricing" },
-      { name: "Contact", href: "/#contact" },
-    ],
-    services: [
-      { name: "Web Design", href: "/#services" },
-      { name: "WordPress", href: "/#services" },
-      { name: "E-Commerce", href: "/#services" },
-      { name: "Landing Pages", href: "/#services" },
-      { name: "SEO Setup", href: "/#services" },
-    ],
+  const handleLinkClick = (to: string) => {
+    navigate(to);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const githubStyleLinks = [
-    { name: "Terms", to: "/terms-of-use" },
-    { name: "Privacy", to: "/privacy-policy" },
-    { name: "About Developer", to: "/about-developer" },
-    { name: "Contact", href: "/#contact" },
+  const column1Links = [
+    { name: t("home"), href: "/#home" },
+    { name: t("services"), href: "/#services" },
+    { name: t("showcase"), href: "/#showcase" },
+    { name: t("pricing"), href: "/#pricing" },
+    { name: t("contact"), href: "/#contact" },
+    { name: "Web Design", href: "/services/web-design" },
+    { name: "WordPress", href: "/services/wordpress" },
+    { name: "E-Commerce", href: "/services/ecommerce" },
+  ];
+
+  const column2Links = [
+    { name: "Landing Pages", href: "/services/landing-page" },
+    { name: "Portfolio", href: "/services/portfolio" },
+    { name: "Coaching Sites", href: "/services/coaching" },
+    { name: "Corporate Sites", href: "/services/corporate" },
+    { name: "Blog & SEO", href: "/services/blog-seo" },
+    { name: t("termsOfUse"), to: "/terms-of-use" },
+    { name: t("privacyPolicy"), to: "/privacy-policy" },
+    { name: t("aboutDeveloper"), to: "/about-developer" },
   ];
 
   return (
@@ -50,35 +56,53 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Navigation */}
+          {/* Column 1 - Navigation & Services */}
           <div>
-            <h4 className="font-heading font-semibold text-foreground mb-4">Navigation</h4>
+            <h4 className="font-heading font-semibold text-foreground mb-4">{t("navigation")}</h4>
             <ul className="space-y-2">
-              {footerLinks.navigation.map((link) => (
+              {column1Links.map((link) => (
                 <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="text-muted-foreground hover:text-primary transition-colors text-sm"
-                  >
-                    {link.name}
-                  </a>
+                  {link.href?.startsWith("/services") ? (
+                    <button
+                      onClick={() => handleLinkClick(link.href!)}
+                      className="text-muted-foreground hover:text-primary transition-colors text-sm text-left"
+                    >
+                      {link.name}
+                    </button>
+                  ) : (
+                    <a
+                      href={link.href}
+                      className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                    >
+                      {link.name}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Services */}
+          {/* Column 2 - More Links */}
           <div>
-            <h4 className="font-heading font-semibold text-foreground mb-4">Services</h4>
+            <h4 className="font-heading font-semibold text-foreground mb-4">{t("services")}</h4>
             <ul className="space-y-2">
-              {footerLinks.services.map((link) => (
+              {column2Links.map((link) => (
                 <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="text-muted-foreground hover:text-primary transition-colors text-sm"
-                  >
-                    {link.name}
-                  </a>
+                  {link.to ? (
+                    <button
+                      onClick={() => handleLinkClick(link.to!)}
+                      className="text-muted-foreground hover:text-primary transition-colors text-sm text-left"
+                    >
+                      {link.name}
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => handleLinkClick(link.href!)}
+                      className="text-muted-foreground hover:text-primary transition-colors text-sm text-left"
+                    >
+                      {link.name}
+                    </button>
+                  )}
                 </li>
               ))}
             </ul>
@@ -86,7 +110,7 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h4 className="font-heading font-semibold text-foreground mb-4">Contact</h4>
+            <h4 className="font-heading font-semibold text-foreground mb-4">{t("contact")}</h4>
             <ul className="space-y-3">
               <li>
                 <a
@@ -127,35 +151,12 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* GitHub Style Footer Links */}
+        {/* Bottom Bar */}
         <div className="border-t border-border mt-12 pt-8">
-          <div className="flex flex-col items-center gap-4">
-            {/* Links Row */}
-            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">
-              {githubStyleLinks.map((link) => (
-                link.to ? (
-                  <Link
-                    key={link.name}
-                    to={link.to}
-                    className="text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                ) : (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    className="text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    {link.name}
-                  </a>
-                )
-              ))}
-            </div>
-
-            {/* Do not share info */}
-            <p className="text-muted-foreground text-xs">
-              Do not share my personal information
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            {/* Tagline */}
+            <p className="text-muted-foreground text-sm italic">
+              "Your Business. Your Brand. Your Website."
             </p>
 
             {/* Copyright with logo */}
