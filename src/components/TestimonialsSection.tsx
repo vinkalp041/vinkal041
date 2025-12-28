@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const testimonials = [
   {
-    name: "Ashish Singh",
+    name: "Rajesh Kumar",
     role: "Coaching Institute Owner",
     content: "WebForge made my coaching website — students love it. The design is professional and the forms work perfectly. Highly recommended!",
     rating: 5
@@ -21,15 +22,40 @@ const testimonials = [
     rating: 5
   },
   {
-    name: "Amit Kumar",
+    name: "Amit Verma",
     role: "Tech Startup Founder",
     content: "Fast delivery, clean code, and excellent support. They built our SaaS landing page in just 5 days. Will definitely work with them again.",
+    rating: 5
+  },
+  {
+    name: "Sneha Gupta",
+    role: "Fashion Boutique Owner",
+    content: "Our e-commerce store looks beautiful and works flawlessly. Sales have doubled since we launched. Thank you WebForge team!",
+    rating: 5
+  },
+  {
+    name: "Vikram Singh",
+    role: "Real Estate Agent",
+    content: "Professional website with property listings, contact forms, and WhatsApp integration. My clients love how easy it is to reach me now.",
+    rating: 5
+  },
+  {
+    name: "Meera Joshi",
+    role: "Yoga Instructor",
+    content: "Beautiful, calming design that perfectly represents my yoga brand. Booking classes is now so simple for my students.",
+    rating: 5
+  },
+  {
+    name: "Arjun Reddy",
+    role: "Restaurant Owner",
+    content: "The menu display and online ordering system work great. Our digital presence has improved dramatically. Excellent work!",
     rating: 5
   }
 ];
 
 const TestimonialsSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -50,15 +76,15 @@ const TestimonialsSection = () => {
     <section className="section-padding">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-16">
-          <span className="text-primary font-semibold text-sm uppercase tracking-wider">Testimonials</span>
+          <span className="text-primary font-semibold text-sm uppercase tracking-wider">{t("testimonials")}</span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mt-3 mb-4">
-            What Our <span className="text-gradient">Clients Say</span>
+            {t("whatClientsSay")} <span className="text-gradient">{t("clientsSay")}</span>
           </h2>
         </div>
 
         <div className="max-w-4xl mx-auto relative">
           {/* Main Testimonial Card */}
-          <div className="bg-card border border-border rounded-3xl p-8 lg:p-12 card-shadow">
+          <div className="bg-card border border-border rounded-3xl p-8 lg:p-12 shadow-lg">
             {/* Stars */}
             <div className="flex justify-center gap-1 mb-6">
               {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
@@ -81,13 +107,13 @@ const TestimonialsSection = () => {
           {/* Navigation Arrows */}
           <button
             onClick={goToPrev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-12 w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:border-primary hover:bg-primary/10 transition-all"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-12 w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:border-primary hover:bg-primary/10 transition-all shadow-md"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
           <button
             onClick={goToNext}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-12 w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:border-primary hover:bg-primary/10 transition-all"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-12 w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:border-primary hover:bg-primary/10 transition-all shadow-md"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
