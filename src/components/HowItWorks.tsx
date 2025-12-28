@@ -42,28 +42,28 @@ const HowItWorks = () => {
           </p>
         </div>
 
-        <div className="relative">
-          {/* Connection Line */}
-          <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/20 via-primary to-primary/20 -translate-y-1/2 z-0" />
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {steps.map((item, index) => (
-              <div key={item.step} className="relative z-10 text-center group">
-                {/* Step Number */}
-                <div className="relative inline-flex mb-6">
-                  <div className="w-20 h-20 rounded-2xl bg-card border-2 border-primary/30 flex items-center justify-center group-hover:border-primary group-hover:bg-primary/10 transition-all duration-300">
-                    <item.icon className="w-8 h-8 text-primary" />
-                  </div>
-                  <span className="absolute -top-2 -right-2 w-8 h-8 bg-primary text-primary-foreground rounded-lg flex items-center justify-center text-sm font-heading font-bold">
-                    {item.step}
-                  </span>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
+          {steps.map((item, index) => (
+            <div key={item.step} className="relative text-center group">
+              {/* Connection Line - between cards only */}
+              {index < steps.length - 1 && (
+                <div className="hidden lg:block absolute top-10 left-[60%] w-[calc(100%-20%)] h-0.5 bg-gradient-to-r from-primary to-primary/30 z-0" />
+              )}
+              
+              {/* Step Number */}
+              <div className="relative inline-flex mb-6 z-10">
+                <div className="w-20 h-20 rounded-2xl bg-card border-2 border-primary/30 flex items-center justify-center group-hover:border-primary group-hover:bg-primary/10 transition-all duration-300">
+                  <item.icon className="w-8 h-8 text-primary" />
                 </div>
-                
-                <h3 className="text-xl font-heading font-semibold mb-3">{item.title}</h3>
-                <p className="text-muted-foreground text-sm">{item.description}</p>
+                <span className="absolute -top-2 -right-2 w-8 h-8 bg-primary text-primary-foreground rounded-lg flex items-center justify-center text-sm font-heading font-bold">
+                  {item.step}
+                </span>
               </div>
-            ))}
-          </div>
+              
+              <h3 className="text-xl font-heading font-semibold mb-3">{item.title}</h3>
+              <p className="text-muted-foreground text-sm">{item.description}</p>
+            </div>
+          ))}
         </div>
 
         <div className="text-center mt-14">

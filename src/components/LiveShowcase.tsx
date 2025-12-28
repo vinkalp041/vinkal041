@@ -58,33 +58,32 @@ const LiveShowcase = () => {
           {projects.map((project, index) => (
             <div
               key={project.title}
-              className="group perspective-1000"
+              className="group perspective-1000 h-[380px]"
               onMouseEnter={() => setFlippedCard(index)}
               onMouseLeave={() => setFlippedCard(null)}
             >
               <div 
-                className={`relative transition-transform duration-500 transform-style-3d ${
+                className={`relative transition-transform duration-500 transform-style-3d h-full ${
                   flippedCard === index ? 'rotate-y-180' : ''
                 }`}
-                style={{ minHeight: '320px' }}
               >
                 {/* Front Side */}
                 <div 
-                  className={`absolute inset-0 bg-card border border-border rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow backface-hidden ${
+                  className={`absolute inset-0 bg-card border border-border rounded-2xl overflow-hidden premium-shadow backface-hidden ${
                     flippedCard === index ? 'invisible' : ''
                   }`}
                 >
                   {/* Live Preview Frame */}
-                  <div className="relative overflow-hidden aspect-video bg-muted">
+                  <div className="relative overflow-hidden h-44 bg-muted">
                     <iframe
                       src={project.url}
                       title={project.title}
                       className="w-full h-full pointer-events-none"
                       style={{ 
-                        transform: "scale(0.35)", 
+                        transform: "scale(0.25)", 
                         transformOrigin: "top left",
-                        width: "286%", 
-                        height: "286%" 
+                        width: "400%", 
+                        height: "400%" 
                       }}
                       loading="lazy"
                       sandbox="allow-scripts allow-same-origin"
@@ -97,13 +96,13 @@ const LiveShowcase = () => {
                       {project.category}
                     </span>
                     <h3 className="text-lg font-heading font-semibold mb-2">{project.title}</h3>
-                    <p className="text-muted-foreground text-sm line-clamp-2">{project.description}</p>
+                    <p className="text-muted-foreground text-sm leading-relaxed">{project.description}</p>
                   </div>
                 </div>
 
                 {/* Back Side */}
                 <div 
-                  className={`absolute inset-0 bg-card border border-primary/50 rounded-2xl overflow-hidden shadow-2xl rotate-y-180 backface-hidden flex flex-col items-center justify-center p-6 ${
+                  className={`absolute inset-0 bg-card border border-primary/50 rounded-2xl overflow-hidden premium-shadow rotate-y-180 backface-hidden flex flex-col items-center justify-center p-6 ${
                     flippedCard !== index ? 'invisible' : ''
                   }`}
                 >
@@ -111,7 +110,7 @@ const LiveShowcase = () => {
                     {project.category}
                   </span>
                   <h3 className="text-xl font-heading font-semibold mb-3 text-center">{project.title}</h3>
-                  <p className="text-muted-foreground text-sm text-center mb-6">{project.description}</p>
+                  <p className="text-muted-foreground text-sm text-center mb-6 leading-relaxed">{project.description}</p>
                   
                   <div className="flex gap-3">
                     <Button 
