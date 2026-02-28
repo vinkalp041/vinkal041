@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { MessageCircle, Users, Paintbrush, Rocket } from "lucide-react";
+import ScrollAnimation from "./ScrollAnimation";
 
 const steps = [
   {
@@ -32,45 +33,51 @@ const HowItWorks = () => {
   return (
     <section className="section-padding">
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="text-center mb-16">
-          <span className="text-primary font-semibold text-sm uppercase tracking-wider">How It Works</span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mt-3 mb-4">
-            From Idea to Launch in <span className="text-gradient">4 Simple Steps</span>
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Our streamlined process ensures your website is delivered on time, every time
-          </p>
-        </div>
+        <ScrollAnimation>
+          <div className="text-center mb-16">
+            <span className="text-primary font-semibold text-sm uppercase tracking-wider">How It Works</span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mt-3 mb-4">
+              From Idea to Launch in <span className="text-gradient">4 Simple Steps</span>
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Our streamlined process ensures your website is delivered on time, every time
+            </p>
+          </div>
+        </ScrollAnimation>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
           {steps.map((item, index) => (
-            <div key={item.step} className="relative text-center group">
-              {/* Connection Line - between cards only */}
-              {index < steps.length - 1 && (
-                <div className="hidden lg:block absolute top-10 left-[60%] w-[calc(100%-20%)] h-0.5 bg-gradient-to-r from-primary to-primary/30 z-0" />
-              )}
-              
-              {/* Step Number */}
-              <div className="relative inline-flex mb-6 z-10">
-                <div className="w-20 h-20 rounded-2xl bg-card border-2 border-primary/30 flex items-center justify-center group-hover:border-primary group-hover:bg-primary/10 transition-all duration-300">
-                  <item.icon className="w-8 h-8 text-primary" />
+            <ScrollAnimation key={item.step} delay={index * 0.15}>
+              <div className="relative text-center group">
+                {/* Connection Line */}
+                {index < steps.length - 1 && (
+                  <div className="hidden lg:block absolute top-10 left-[60%] w-[calc(100%-20%)] h-0.5 bg-gradient-to-r from-primary to-primary/30 z-0" />
+                )}
+                
+                {/* Step Number */}
+                <div className="relative inline-flex mb-6 z-10">
+                  <div className="w-20 h-20 rounded-2xl bg-card border-2 border-primary/30 flex items-center justify-center group-hover:border-primary group-hover:bg-primary/10 transition-all duration-300">
+                    <item.icon className="w-8 h-8 text-primary" />
+                  </div>
+                  <span className="absolute -top-2 -right-2 w-8 h-8 bg-primary text-primary-foreground rounded-lg flex items-center justify-center text-sm font-heading font-bold">
+                    {item.step}
+                  </span>
                 </div>
-                <span className="absolute -top-2 -right-2 w-8 h-8 bg-primary text-primary-foreground rounded-lg flex items-center justify-center text-sm font-heading font-bold">
-                  {item.step}
-                </span>
+                
+                <h3 className="text-xl font-heading font-semibold mb-3">{item.title}</h3>
+                <p className="text-muted-foreground text-sm">{item.description}</p>
               </div>
-              
-              <h3 className="text-xl font-heading font-semibold mb-3">{item.title}</h3>
-              <p className="text-muted-foreground text-sm">{item.description}</p>
-            </div>
+            </ScrollAnimation>
           ))}
         </div>
 
-        <div className="text-center mt-14">
-          <Button variant="hero" size="lg">
-            Book a Free Consultation
-          </Button>
-        </div>
+        <ScrollAnimation delay={0.4}>
+          <div className="text-center mt-14">
+            <Button variant="hero" size="lg" onClick={() => window.open("https://forms.gle/szcGyWgnXACAQGe86", "_blank")}>
+              Book a Free Consultation
+            </Button>
+          </div>
+        </ScrollAnimation>
       </div>
     </section>
   );
